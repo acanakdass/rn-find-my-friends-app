@@ -6,7 +6,7 @@ import AuthForm from './AuthForm';
 const SignUpScreen = ({ navigation }) => {
 
    return (
-      <View>
+      <View style={styles.container}>
 
          <AuthForm
             headerText="Sign Up!"
@@ -15,6 +15,7 @@ const SignUpScreen = ({ navigation }) => {
          // signFunc={({ email, password }) => signIn({ email, password })}
          />
          <Button
+            titleStyle={{ color: "white" }}
             type="clear"
             title="Already have an account? Sign In"
             onPress={() => navigation.navigate("Signin")}
@@ -25,4 +26,9 @@ const SignUpScreen = ({ navigation }) => {
 
 export default SignUpScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+   container: {
+      flex: 1,
+      backgroundColor: 'black'
+   }
+})

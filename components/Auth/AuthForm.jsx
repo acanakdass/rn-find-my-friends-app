@@ -5,6 +5,7 @@ import { Paragraph, TextInput } from 'react-native-paper';
 import Spacer from '../Spacer';
 import AuthService from '../../services/AuthService';
 import { AuthContext } from '../../contexts/AuthContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigation }) => {
    // const { signIn, goWithoutSignIn } = React.useContext(AuthContext)
@@ -36,33 +37,53 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
       <KeyboardAvoidingView>
          <ScrollView contentContainerStyle={styles.contentContainerStyle}>
             <View style={styles.container}>
-               <Text h3 style={{ textAlign: 'center' }}>{headerText}</Text>
+               <Text h3 style={{ textAlign: 'center', color: 'white' }}>{headerText}</Text>
                <Spacer margin={20} />
                <Paragraph style={{ textAlign: 'center', color: 'red' }}>{errorText}</Paragraph>
-               <TextInput
-
+               <Input
+                  leftIcon={
+                     <Icon
+                        name='user'
+                        size={22}
+                        color='lightgray'
+                     />}
+                  style={{ color: 'white' }}
+                  placeholder="Email or Username"
                   label="Username"
                   value={username}
                   onChangeText={setUsername}
                   autoCapitalize="none"
                   autoCorrect={false}
-                  mode="outlined"
-                  outlineColor="lightgray"
+               // mode="flat"
+               // outlineColor="lightgray"
 
-               ></TextInput>
-
-               <TextInput
-                  outlineColor="lightgray"
-                  mode="outlined"
+               />
+               <Spacer margin={5} />
+               <Input
+                  leftIcon={
+                     <Icon
+                        name='lock'
+                        size={22}
+                        color='lightgray'
+                     />}
+                  placeholder="Your Password"
+                  style={{ color: 'white' }}
                   label="Password"
                   value={password}
                   secureTextEntry
                   onChangeText={(inputPw => setPassword(inputPw))} />
                {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+               <Spacer margin={5} />
+
                {signButtonText == 'Sign Up' ? (
-                  <TextInput
-                     outlineColor="lightgray"
-                     mode="outlined"
+                  <Input
+                     placeholder="Confirm Password"
+                     leftIcon={
+                        <Icon
+                           name='lock'
+                           size={22}
+                           color='lightgray'
+                        />}
                      label="Repeat Password"
                      value={passwordRepeat}
                      secureTextEntry
@@ -71,12 +92,28 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                <Spacer margin={10} />
 
                <Button
-                  buttonStyle={{ backgroundColor: 'black' }}
+
+                  buttonStyle={{ backgroundColor: 'white' }}
+                  disabledStyle={{ backgroundColor: 'gray' }}
+                  disabledTitleStyle={{ color: 'black' }}
+                  // loadingStyle={{ shadowColor: 'red', }}
+                  loadingProps={{ color: 'black' }}
                   disabled={signButtonText == 'Sign Up' ? username === '' || password == '' || passwordRepeat == '' : username === '' || password == ''}
                   type="solid"
                   loading={isSigningIn}
                   title={signButtonText}
-                  onPress={() => signIn(username, password)}
+                  titleStyle={{ color: "black" }}
+                  onPress={() => {
+                     if (signButtonText == 'Sign In') {
+                        setIsSigningIn(true)
+                        signIn(username, password)
+                        setTimeout(() => { setIsSigningIn(false) }, 4000)
+                     } else if (signButtonText == 'Sign Up') {
+                        setIsSigningIn(true)
+                        signIn(username, password)
+                        setTimeout(() => { setIsSigningIn(false) }, 4000)
+                     }
+                  }}
                />
 
             </View>

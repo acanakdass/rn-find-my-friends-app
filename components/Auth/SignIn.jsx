@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import AuthForm from './AuthForm';
 import AuthService from '../../services/AuthService';
 import { AuthContext } from '../../contexts/AuthContext';
+import { color } from 'react-native-elements/dist/helpers';
 
 const SigninScreen = ({ navigation }) => {
 
@@ -29,11 +30,13 @@ const SigninScreen = ({ navigation }) => {
             type='facebook'
          /> */}
          <Button
+            titleStyle={{ color: "white" }}
             type="clear"
             title="Don't have an account? Sign Up"
             onPress={() => navigation.push("Signup")}
          />
          <Button
+            titleStyle={{ color: "white" }}
             type="clear"
             title="Go without Sign In"
             onPress={() => goWithoutSignIn()}
@@ -49,7 +52,7 @@ export default SigninScreen
 
 const styles = StyleSheet.create({
    container: {
-
+      backgroundColor: 'black',
       flex: 1,
       flexDirection: 'column',
    },

@@ -9,7 +9,7 @@ const Main = () => {
 
    const [token, settoken] = useState(null)
    const [currentUser, setcurrentUser] = useState({})
-   const { signIn, goWithoutSignIn, getStoredToken } = React.useContext(AuthContext)
+   const { signIn, signOut, goWithoutSignIn, getStoredToken } = React.useContext(AuthContext)
 
    const getUser = () => {
 
@@ -34,7 +34,7 @@ const Main = () => {
          <Text>MainPAge</Text>
          <Text>signed in user : {currentUser.firstName} </Text>
          <Button onPress={() => {
-
+            signOut()
          }}>Sign Out</Button>
          <Button onPress={() => getUser()}>getuser</Button>
       </View>

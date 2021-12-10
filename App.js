@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NativeBaseProvider, Box, Button } from 'native-base';
+import { NativeBaseProvider, Box, Button, Divider, HStack, Spinner, Heading, Center } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SignIn from './components/Auth/SignIn';
@@ -12,6 +12,7 @@ import AuthService from './services/AuthService';
 import { AuthContext } from './contexts/AuthContext';
 import UserService from './services/UserService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/core';
 
 export default function App() {
 
@@ -19,6 +20,8 @@ export default function App() {
 
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const authService = new AuthService();
 
@@ -29,6 +32,12 @@ export default function App() {
       // saving error
       console.log('storage error')
     }
+  }
+
+  const removeToken = async () => {
+
+    await AsyncStorage.removeItem('bearer')
+
   }
 
 
@@ -46,26 +55,34 @@ export default function App() {
     }
   }
 
-
   useEffect(() => {
+    setIsLoading(true)
     let userService = new UserService();
     getToken();
-    console.log(token)
+
+    console.log("token: " + token)
     userService.getCurrentUser(token).then(res => {
-      console.log(res)
+      // console.log(res)
+      setIsLoading(false)
       setisAuthenticated(true)
+
+
     }).catch(err => {
       console.log("err: " + err)
-      setisAuthenticated(false)
-    })
-  }, [])
+      setisAuthenticated(false);
+      setIsLoading(false)
+      // setIsLoading(false)
+    });
+
+
+  }, [token])
 
 
   const authContext = React.useMemo(() => {
     return {
       signIn: (email, password) => {
         authService.login(email, password).then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           setisAuthenticated(true);
           storeToken(res.data.data.token)
         })
@@ -81,13 +98,18 @@ export default function App() {
         // })
         console.log('sign in')
       },
-      signUp: () => {
-        setIsLoading(false);
-        setUserToken('admin');
+      signUp: (email, password, firstName, lastName) => {
+        authService.register(email, password).then(res => {
+          // console.log(res.data);
+          setisAuthenticated(true);
+          storeToken(res.data.data.token)
+        })
       },
       signOut: () => {
-        setIsLoading(false);
-        setUserToken(null);
+        console.log('Signing outtt')
+        removeToken();
+        setToken(null);
+        setisAuthenticated(false)
       },
 
       goWithoutSignIn: () => {
@@ -115,13 +137,30 @@ export default function App() {
 
 
   return (
-    <AuthContext.Provider value={authContext}>
+    isLoading == false ? (
+      <>
+        <AuthContext.Provider value={authContext} >
+          <NativeBaseProvider>
+            <NavigationContainer>
+              <RootStackNavigator isAuthenticated={isAuthenticated} />
+            </NavigationContainer>
+          </NativeBaseProvider>
+        </AuthContext.Provider >
+      </>
+    ) : (
       <NativeBaseProvider>
-        <NavigationContainer>
-          <RootStackNavigator isAuthenticated={isAuthenticated} />
-        </NavigationContainer>
+
+        <Center flex={1} px="3">
+          <HStack space={2} alignItems="center">
+            <Spinner accessibilityLabel="Loading posts" />
+            <Heading color="primary.500" fontSize="lg">
+              Loading
+            </Heading>
+          </HStack>
+        </Center>
       </NativeBaseProvider>
-    </AuthContext.Provider>
+
+    )
   );
 }
 
