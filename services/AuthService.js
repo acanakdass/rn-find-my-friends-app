@@ -15,8 +15,8 @@ export default class AuthService {
       return axios.post(this.baseUrl + "/login", { "email": username, "password": password });
    }
 
-   register(credentials) {
-      return axios.post(this.baseUrl + "/register", credentials);
+   register(email, password, firstName, lastName) {
+      return axios.post(this.baseUrl + "/register", { "email": email, "password": password, "firstName": firstName, "lastName": lastName });
    }
 
    setBearerToken(token) {
