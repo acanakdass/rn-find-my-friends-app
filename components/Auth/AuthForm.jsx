@@ -107,7 +107,7 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                      if (signButtonText == 'Sign In') {
                         setIsSigningIn(true)
                         signIn(username, password)
-                        setTimeout(() => { setIsSigningIn(false) }, 4000)
+                        // setTimeout(() => { setIsSigningIn(false) }, 4000)
                      } else if (signButtonText == 'Sign Up') {
                         setIsSigningIn(true)
                         signIn(username, password)

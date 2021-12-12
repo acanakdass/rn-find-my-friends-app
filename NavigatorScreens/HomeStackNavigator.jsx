@@ -34,7 +34,10 @@ const HomeStackNavigator = () => (
                iconName = focused ? 'search' : 'search-outline';
                size = focused ? 25 : 20;
             } else if (route.name === 'FriendRequests') {
-               iconName = focused ? 'user-friends' : 'user-friends';
+               iconName = focused ? 'people' : 'people-outline';
+               size = focused ? 25 : 20;
+            } else if (route.name === 'Profile') {
+               iconName = focused ? 'person' : 'person-outline';
                size = focused ? 25 : 20;
             }
 
@@ -47,7 +50,8 @@ const HomeStackNavigator = () => (
    >
       <BottomTab.Screen options={{ tabBarLabel: "Main" }} name="Main" component={Main} />
       <BottomTab.Screen options={{ tabBarLabel: "Friends" }} name="Friends" component={Friends} />
-      <BottomTab.Screen options={{ tabBarLabel: "Friend Requests", tabBarIcon: () => (<FontAwesome5 name="users" size={24} color="black" />) }} name="FriendRequests" component={FriendRequests} />
+      <BottomTab.Screen options={{ tabBarLabel: "Friend Requests" }} name="FriendRequests" component={FriendRequests} />
+      <BottomTab.Screen options={{ tabBarLabel: "Profile" }} name="Profile" component={Profile} />
 
    </BottomTab.Navigator>
 )
@@ -76,6 +80,7 @@ export default HomeStackNavigator;
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import Friends from '../components/Home/Friends';
 // import FriendRequests from '../components/Home/FriendRequests';
+import Profile from '../components/Home/Profile';
 
 // const HomeStack = createNativeStackNavigator();
 

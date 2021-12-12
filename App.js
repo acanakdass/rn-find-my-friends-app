@@ -13,6 +13,7 @@ import { AuthContext } from './contexts/AuthContext';
 import UserService from './services/UserService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/core';
+import SpinnerScreen from './components/Utils/SpinnerScreen';
 
 export default function App() {
 
@@ -62,19 +63,18 @@ export default function App() {
 
     console.log("token: " + token)
     userService.getCurrentUser(token).then(res => {
-      // console.log(res)
-      setIsLoading(false)
+      console.log('Getting current user')
       setisAuthenticated(true)
-
-
     }).catch(err => {
-      console.log("err: " + err)
+      console.log('Cant get current user')
+
       setisAuthenticated(false);
-      setIsLoading(false)
       // setIsLoading(false)
-    });
-
-
+    }).finally((final) => {
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+    })
   }, [token])
 
 
@@ -105,12 +105,24 @@ export default function App() {
           storeToken(res.data.data.token)
         })
       },
-      signOut: () => {
-        console.log('Signing outtt')
-        removeToken();
-        setToken(null);
-        setisAuthenticated(false)
+      // signOut: () => {
+      //   console.log('Signing out')
+      //   removeToken();
+      //   setToken(null);
+      //   setisAuthenticated(false)
+      // },
+      signOut: async () => {
+        const keys = ['bearer', 'currentUserObj']
+        try {
+          await AsyncStorage.multiRemove(keys)
+          setToken(null);
+          setisAuthenticated(false)
+        } catch (e) {
+          // remove error
+        }
+        console.log('Done')
       },
+
 
       goWithoutSignIn: () => {
         setisAuthenticated(true)
@@ -120,7 +132,6 @@ export default function App() {
           const value = AsyncStorage.getItem('bearer')
           if (value !== null) {
             // value previously stored
-            console.log('gtttiiiingg')
             return value;
           } else {
             console.log("value null" + value)
@@ -129,6 +140,23 @@ export default function App() {
           // error reading value
           console.log('storage reading error')
 
+        }
+      },
+      getStoredUserObject: async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('currentUserObj')
+          // console.log('jsonValue')
+          // console.log(jsonValue)
+          if (jsonValue == null) {
+            console.log('Data is null');
+            return null;
+          } else {
+            console.log('not null')
+            // console.log(JSON.parse(jsonValue))
+            return JSON.parse(jsonValue);
+          }
+        } catch (e) {
+          console.log('error reading current user object : ' + e)
         }
       }
     }
@@ -149,15 +177,7 @@ export default function App() {
       </>
     ) : (
       <NativeBaseProvider>
-
-        <Center flex={1} px="3">
-          <HStack space={2} alignItems="center">
-            <Spinner accessibilityLabel="Loading posts" />
-            <Heading color="primary.500" fontSize="lg">
-              Loading
-            </Heading>
-          </HStack>
-        </Center>
+        <SpinnerScreen />
       </NativeBaseProvider>
 
     )
