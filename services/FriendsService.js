@@ -11,6 +11,9 @@ export default class FriendsService {
    getAllFriendsByUserId(userId) {
       return axios.get(this.baseUrl + "/getAllFriends?userId=" + userId);
    }
+   getAllFriendRequestsByUserId(userId) {
+      return axios.get(this.baseUrl + "/getAllFriendRequests?userId=" + userId);
+   }
    // getCurrentUser(token) {
    //    const config = {
    //       headers: {

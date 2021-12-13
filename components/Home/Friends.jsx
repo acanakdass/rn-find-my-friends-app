@@ -1,17 +1,19 @@
-import { Button, Divider } from 'native-base'
+import { Button, Divider, Spinner } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { List } from 'react-native-paper';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useIsFocused } from '@react-navigation/native';
 import FriendsService from '../../services/FriendsService';
+import SingleSpinner from '../Utils/SingleSpinner';
+import FriendsList from './FriendsList';
 
 const Friends = ({ navigation }) => {
 
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
-   const [currentUser, setcurrentUser] = useState({});
    const isFocused = useIsFocused();
-   const [friends, setFriends] = useState([]);
+   const [currentUser, setcurrentUser] = useState({});
+   const [friends, setFriends] = useState(null);
 
    let friendsService = new FriendsService();
    useEffect(async () => {
@@ -20,6 +22,7 @@ const Friends = ({ navigation }) => {
       await getStoredUserObject().then(res => {
          setcurrentUser(res);
       })
+      console.log('friendsss: ' + friends)
    }, [])
 
    useEffect(() => {
@@ -30,21 +33,20 @@ const Friends = ({ navigation }) => {
          })
       }
       console.log('setting friends')
-   }, [currentUser])
+   }, [currentUser, isFocused])
 
    return (
 
       <View>
-         <Text>friends screen</Text>
-         <Button onPress={() => navigation.navigate('FriendRequests')} >See friend requests</Button>
+         {/* <Text>friends screen</Text>
+         <Button onPress={() => navigation.navigate('FriendRequests')} >See friend requests</Button> */}
          <Divider />
-         {friends.map((friend) => (
-            <List.Item key={friend.id}
-               title={friend.email}
-               description={friend.firstName}
-               left={props => <List.Icon {...props} icon="folder" />}
-            />
-         ))}
+         {friends == null ? (
+            <SingleSpinner />
+         ) : <View>
+            <FriendsList data={friends} />
+         </View>}
+
       </View>
    )
 }
