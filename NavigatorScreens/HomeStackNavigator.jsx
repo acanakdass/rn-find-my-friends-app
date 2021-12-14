@@ -6,8 +6,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Friends from '../components/Home/Friends';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesome5 } from '@expo/vector-icons';
+import Profile from '../components/Home/Profile';
 
 import FriendRequests from '../components/Home/FriendRequests';
+
 
 const BottomTab = createMaterialBottomTabNavigator()
 const HomeStackNavigator = () => (
@@ -17,12 +19,14 @@ const HomeStackNavigator = () => (
    //   <Tabs.Screen name="Search" component={SearchStackScreen} />
    // </Tabs.Navigator>
    <BottomTab.Navigator
+      style={{ color: 'white' }}
       // activeColor="#e91e63"
-      activeColor="black"
+      activeColor="white"
       shifting
       labeled
       initialRouteName="Home"
-      barStyle={{ backgroundColor: 'white', height: 70, marginBottom: 0, paddingBottom: 20 }}
+
+      barStyle={{ backgroundColor: 'black', height: 70, marginBottom: 0, paddingBottom: 0 }}
       screenOptions={({ route }) => ({
          tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -48,6 +52,8 @@ const HomeStackNavigator = () => (
       })}
 
    >
+
+
       <BottomTab.Screen options={{ tabBarLabel: "Main" }} name="Main" component={Main} />
       <BottomTab.Screen options={{ tabBarLabel: "Friends" }} name="Friends" component={Friends} />
       <BottomTab.Screen options={{ tabBarLabel: "Friend Requests" }} name="FriendRequests" component={FriendRequests} />
@@ -58,41 +64,3 @@ const HomeStackNavigator = () => (
 
 
 export default HomeStackNavigator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react'
-// import { StyleSheet, Text, View } from 'react-native'
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import Friends from '../components/Home/Friends';
-// import FriendRequests from '../components/Home/FriendRequests';
-import Profile from '../components/Home/Profile';
-
-// const HomeStack = createNativeStackNavigator();
-
-// const HomeStackNavigator = () => {
-//    return (
-//       <HomeStack.Navigator>
-//          <HomeStack.Screen name="Friends" component={Friends} options={{ title: 'Friends', headerShown: true }} />
-//          <HomeStack.Screen name="FriendRequests" component={FriendRequests} options={{ title: 'Friend Requests', headerShown: true }} />
-//       </HomeStack.Navigator>
-//    )
-// }
-
-// export default HomeStackNavigator
-
-// const styles = StyleSheet.create({})

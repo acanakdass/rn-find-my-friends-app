@@ -6,33 +6,63 @@ import Spacer from '../Spacer';
 import AuthService from '../../services/AuthService';
 import { AuthContext } from '../../contexts/AuthContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigation }) => {
-   // const { signIn, goWithoutSignIn } = React.useContext(AuthContext)
 
 
    const [username, setUsername] = useState('');
+   const [firstName, setFirstName] = useState('');
    const [password, setPassword] = useState('');
    const [passwordRepeat, setPasswordRepeat] = useState('');
    const [errorText, setErrorText] = useState('');
-   const { signIn, goWithoutSignIn } = React.useContext(AuthContext)
+   const { signIn, signUp, goWithoutSignIn, authenticateAndStoreToken } = React.useContext(AuthContext)
 
+   const navigatior = useNavigation();
    const [isSigningIn, setIsSigningIn] = useState(false);
-   // const signInAsync = async () => {
-   //    setIsSigningIn(true)
-   //    setTimeout(() => {
-   //       setIsSigningIn(false)
-   //    }, 3000)
-   //    let authService = new AuthService();
-   //    authService.login(username, password).then(res => {
-   //       console.log(res.data.data.token)
-   //       authService.setBearerToken(res.data.data.token)
-   //       navigation.navigate("Home")
-   //    }).catch(err => {
-   //       console.log("Hata :" + err)
-   //    })
-   //    console.log(authService.login());
-   // }
+
+
+
+   const handleSignIn = () => {
+      setIsSigningIn(true)
+
+      signIn(username, password).then(res => {
+         console.log(res.data.data.token)
+         // showToast('success', 'welcome', 'signed in')
+         Toast.show({
+            type: 'success',
+            text1: 'Hello',
+            text2: 'This is some something 👋'
+         });
+         authenticateAndStoreToken(res.data.data.token)
+         setIsSigningIn(false)
+      }
+      ).catch(err => {
+         console.log('Hata olduu: ' + err)
+         setIsSigningIn(false)
+      }).finally(f => {
+         setIsSigningIn(false)
+         console.log('fianlly worked')
+      })
+   }
+
+   const handleSignUp = () => {
+      setIsSigningIn(true)
+
+      signUp(username, password, firstName).then(res => {
+         console.log(res.data)
+         navigatior.goBack()
+         setIsSigningIn(false)
+      }
+      ).catch(err => {
+         console.log('Hata olduu: ' + err)
+         setIsSigningIn(false)
+      }).finally(f => {
+         setIsSigningIn(false)
+         console.log('fianlly worked')
+      })
+   }
    return (
       <KeyboardAvoidingView>
          <ScrollView contentContainerStyle={styles.contentContainerStyle}>
@@ -40,10 +70,27 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                <Text h3 style={{ textAlign: 'center', color: 'white' }}>{headerText}</Text>
                <Spacer margin={20} />
                <Paragraph style={{ textAlign: 'center', color: 'red' }}>{errorText}</Paragraph>
+               {signButtonText == 'Sign Up' ? (
+                  <>
+                     <Input
+                        placeholder="Firstname"
+                        leftIcon={
+                           <Icon
+                              name='user'
+                              size={22}
+                              color='lightgray'
+                           />}
+                        style={{ color: 'white' }}
+                        label="First Name"
+                        value={firstName}
+                        onChangeText={(inputPw => setFirstName(inputPw))} />
+                  </>
+               ) : (<View></View>)}
+               <Spacer margin={10} />
                <Input
                   leftIcon={
                      <Icon
-                        name='user'
+                        name='envelope-o'
                         size={22}
                         color='lightgray'
                      />}
@@ -84,6 +131,7 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                            size={22}
                            color='lightgray'
                         />}
+                     style={{ color: 'white' }}
                      label="Repeat Password"
                      value={passwordRepeat}
                      secureTextEntry
@@ -105,13 +153,9 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                   titleStyle={{ color: "black" }}
                   onPress={() => {
                      if (signButtonText == 'Sign In') {
-                        setIsSigningIn(true)
-                        signIn(username, password)
-                        // setTimeout(() => { setIsSigningIn(false) }, 4000)
+                        handleSignIn()
                      } else if (signButtonText == 'Sign Up') {
-                        setIsSigningIn(true)
-                        signIn(username, password)
-                        setTimeout(() => { setIsSigningIn(false) }, 4000)
+                        handleSignUp()
                      }
                   }}
                />

@@ -43,14 +43,15 @@ const RootStackNavigator = ({ isAuthenticated }) => {
 
    return (
       <Stack.Navigator>
+
          {isAuthenticated == true ? (
             <>
-               <Stack.Screen name="Home" component={HomeStackNavigator} options={{ title: 'Find My Friends', headerShown: true }} />
+               <Stack.Screen name="Home" component={HomeStackNavigator} options={{ animation: 'fade_from_bottom', title: 'Find My Friends', headerShown: true, headerTitleStyle: { color: 'white' }, headerStyle: { backgroundColor: 'black' } }} />
                {/* <Stack.Screen name="Auth" component={AuthStackScreen} options={{ title: 'Sign In', headerShown: false }} /> */}
             </>
          ) :
             <>
-               <Stack.Screen name="Auth" component={AuthStackScreen} options={{ title: 'Sign In', headerShown: false }} />
+               <Stack.Screen name="Auth" component={AuthStackScreen} options={{ animation: 'none', title: 'Sign In', headerShown: false }} />
                {/* <Stack.Screen name="Home" component={HomeStackNavigator} options={{ title: 'Find My Friends', headerShown: true }} /> */}
             </>
          }

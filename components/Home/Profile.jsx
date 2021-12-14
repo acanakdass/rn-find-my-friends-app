@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { AuthContext } from '../../contexts/AuthContext';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -15,11 +15,18 @@ const Profile = () => {
    }, [isFocused])
 
    return (
-      <View>
-         <Text>{currentUser?.id}</Text>
-         <Text>{currentUser?.firstName}</Text>
+      <View style={styles.container}>
+
+         <Text style={styles.text}>{currentUser?.id}</Text>
+         <Text style={styles.text}>{currentUser?.firstName}</Text>
       </View>
    )
 }
 
 export default Profile
+const styles = StyleSheet.create({
+   container: { backgroundColor: 'black', flex: 1 },
+   text: {
+      color: 'white'
+   }
+})

@@ -23,6 +23,13 @@ const FriendRequests = () => {
       })
    }, [])
 
+   const acceptFriendRequest = (senderId) => {
+      friendsService.acceptFriendRequest(senderId, currentUser.id).then(res => {
+         console.log(res.data)
+      }).catch(err => console.log('err while accepting:' + err))
+      console.log(senderId)
+      console.log(currentUser.id)
+   }
    useEffect(() => {
       if (currentUser != {}) {
          friendsService.getAllFriendRequestsByUserId(currentUser.id).then(res => {
@@ -38,14 +45,14 @@ const FriendRequests = () => {
 
 
    return (
-      <View>
-         <Text>Friend Requests</Text>
-         <Divider />
-         <FriendRequestsList data={friendRequests} />
+      <View style={styles.container}>
+         <FriendRequestsList acceptFriendRequest={acceptFriendRequest} data={friendRequests} />
       </View>
    )
 }
 
 export default FriendRequests
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+   container: { backgroundColor: 'black', flex: 1 }
+})

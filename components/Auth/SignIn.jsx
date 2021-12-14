@@ -6,15 +6,14 @@ import AuthForm from './AuthForm';
 import AuthService from '../../services/AuthService';
 import { AuthContext } from '../../contexts/AuthContext';
 import { color } from 'react-native-elements/dist/helpers';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 
-const SigninScreen = ({ navigation }) => {
+const SigninScreen = ({ route, navigation }) => {
 
    const { signIn, goWithoutSignIn } = React.useContext(AuthContext)
-
-   // const goWithoutSignIn = () => {
-   //    navigation.navigate('Home')
-   // }
    return (
+
       <View style={styles.container}>
 
          <AuthForm
@@ -45,6 +44,7 @@ const SigninScreen = ({ navigation }) => {
          </ImageBackground> */}
 
       </View >
+
    )
 }
 

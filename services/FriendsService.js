@@ -14,6 +14,9 @@ export default class FriendsService {
    getAllFriendRequestsByUserId(userId) {
       return axios.get(this.baseUrl + "/getAllFriendRequests?userId=" + userId);
    }
+   acceptFriendRequest(senderId, receiverId) {
+      return axios.post(this.baseUrl + "/acceptFriendRequest", { "senderId": senderId, "receiverId": receiverId });
+   }
    // getCurrentUser(token) {
    //    const config = {
    //       headers: {

@@ -5,10 +5,16 @@ import { ListItem, Button, Icon } from 'react-native-elements'
 
 const FriendsList = ({ data }) => {
 
+   const testFunc = () => {
+
+   }
    const keyExtractor = (item, index) => index.toString()
 
    const renderItem = ({ item }) => (
       <ListItem.Swipeable
+         onPress={() => alert(item.email)}
+         // accessible
+         containerStyle={{ backgroundColor: 'black' }}
          leftContent={
             <Button
                title="Info"
@@ -23,21 +29,21 @@ const FriendsList = ({ data }) => {
                buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
             />
          }
+         style={{ backgroundColor: 'black' }}
       >
-         <Icon name="person" />
-         <ListItem.Content>
-            <ListItem.Title>{item?.firstName} </ListItem.Title>
-            <ListItem.Subtitle>{item?.email} </ListItem.Subtitle>
+         <Icon name="person" color='white' />
+         <ListItem.Content >
+            <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
+            <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>
          </ListItem.Content>
-
-
-         {/* <ListItem.Chevron /> */}
+         <ListItem.Chevron />
       </ListItem.Swipeable>
    )
    return (
-      <View>
+      <View style={{ height: '100%' }}>
 
          <FlatList
+
             keyExtractor={keyExtractor}
             data={data}
             renderItem={renderItem}

@@ -1,11 +1,12 @@
 import { Button } from 'native-base'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import AuthService from '../../services/AuthService';
 import UserService from '../../services/UserService';
 import { AuthContext } from '../../contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
+import { Text } from 'react-native-elements';
 const Main = () => {
 
    const [token, settoken] = useState(null)
@@ -26,7 +27,7 @@ const Main = () => {
       if (currentUser != {}) {
          setCurrentUserToAsyncStorage()
       }
-      console.log('aaa')
+
    }, [currentUser])
 
 
@@ -50,16 +51,19 @@ const Main = () => {
 
    }, [token])
    return (
-      <View>
-         <Text>MainPAge</Text>
-         <Text>signed in user : {currentUser.firstName} </Text>
+      <View style={styles.container}>
+
+         <Text h3 h3Style={{ color: 'white' }} >signed in user : {currentUser.firstName} </Text>
          <Button onPress={() => {
             signOut()
          }}>Sign Out</Button>
+
       </View>
    )
 }
 
 export default Main
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+   container: { backgroundColor: 'black', flex: 1 }
+})

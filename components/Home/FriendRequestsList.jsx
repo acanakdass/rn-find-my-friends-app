@@ -1,38 +1,32 @@
 import { Avatar, FlatList } from 'native-base'
 import React from 'react'
-import { View, Text } from 'react-native'
-import { ListItem, Button, Icon } from 'react-native-elements'
+import { View } from 'react-native'
+import { ListItem, Button, Icon, Text } from 'react-native-elements'
+import FriendsService from '../../services/FriendsService';
 
-const FriendRequestsList = ({ data }) => {
+const FriendRequestsList = ({ data, acceptFriendRequest }) => {
 
    const keyExtractor = (item, index) => index.toString()
 
-   const fakeData = [
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' },
-      { firstName: 'Ahmet Can' }
-   ]
+
+
+
    const renderItem = ({ item }) => (
-      <ListItem>
-         <Icon name="person" />
-         <ListItem.Content>
-            <ListItem.Title>{item?.firstName} </ListItem.Title>
-            <ListItem.Subtitle>{item?.email} </ListItem.Subtitle>
+      <ListItem
+         onPress={() => console.log('pressed')}
+         containerStyle={{ backgroundColor: "black" }}>
+         <Icon color='white' name="person" />
+         <ListItem.Content >
+            <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
+            <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>
 
          </ListItem.Content>
 
-         <Button type='outline' buttonStyle={{ borderColor: 'lightblue', borderWidth: '2', borderRadius: '25' }}
+         <Button onPress={() => acceptFriendRequest(item.id)} type='outline' buttonStyle={{ borderColor: 'lightblue', borderWidth: '2', borderRadius: '25' }}
             icon={{
                name: "check",
                size: 25,
-               color: "black"
+               color: "white"
             }}
          // title="object"
          />
@@ -40,7 +34,7 @@ const FriendRequestsList = ({ data }) => {
       </ListItem>
    )
    return (
-      <View>
+      <View style={{ height: '100%' }}>
 
          <FlatList
             keyExtractor={keyExtractor}

@@ -12,12 +12,11 @@ import AuthService from './services/AuthService';
 import { AuthContext } from './contexts/AuthContext';
 import UserService from './services/UserService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/core';
+
+// import { useNavigation } from '@react-navigation/core';
 import SpinnerScreen from './components/Utils/SpinnerScreen';
 
 export default function App() {
-
-
 
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
@@ -80,30 +79,22 @@ export default function App() {
 
   const authContext = React.useMemo(() => {
     return {
+      authenticateAndStoreToken: (token) => {
+        setisAuthenticated(true);
+        storeToken(token)
+      },
+      // showToast: (type, text1, text2) => {
+      //   Toast.show({
+      //     type: type,
+      //     text1: text1,
+      //     text2: text2
+      //   });
+      // },
       signIn: (email, password) => {
-        authService.login(email, password).then(res => {
-          // console.log(res.data);
-          setisAuthenticated(true);
-          storeToken(res.data.data.token)
-        })
-        // authService.login(email, password).then(res => {
-        //   console.log("res.data")
-        //   console.log(res.data)
-        //   setToken(res.data.data)
-        //   setisAuthenticated(true)
-        //   AsyncStorage.setItem('token', res.data.data)
-        // }).catch(err => {
-        //   setisAuthenticated(false)
-        //   console.log("Giriş Kontrolü Başarısız : " + err) 
-        // })
-        console.log('sign in')
+        return authService.login(email, password)
       },
       signUp: (email, password, firstName, lastName) => {
-        authService.register(email, password).then(res => {
-          // console.log(res.data);
-          setisAuthenticated(true);
-          storeToken(res.data.data.token)
-        })
+        return authService.register(email, password, firstName, lastName)
       },
       // signOut: () => {
       //   console.log('Signing out')
@@ -165,6 +156,7 @@ export default function App() {
 
 
   return (
+
     isLoading == false ? (
       <>
         <AuthContext.Provider value={authContext} >

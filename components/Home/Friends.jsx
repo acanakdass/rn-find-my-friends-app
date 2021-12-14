@@ -28,7 +28,7 @@ const Friends = ({ navigation }) => {
    useEffect(() => {
       if (currentUser != {}) {
          friendsService.getAllFriendsByUserId(currentUser.id).then(res => {
-            // console.log(res.data.data)
+            console.log(res.data.data)
             setFriends(res.data.data)
          })
       }
@@ -37,10 +37,9 @@ const Friends = ({ navigation }) => {
 
    return (
 
-      <View>
+      <View style={styles.container}>
          {/* <Text>friends screen</Text>
          <Button onPress={() => navigation.navigate('FriendRequests')} >See friend requests</Button> */}
-         <Divider />
          {friends == null ? (
             <SingleSpinner />
          ) : <View>
@@ -53,4 +52,6 @@ const Friends = ({ navigation }) => {
 
 export default Friends
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+   container: { backgroundColor: 'black', flex: 1 }
+})
