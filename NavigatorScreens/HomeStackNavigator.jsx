@@ -9,6 +9,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import Profile from '../components/Home/Profile';
 
 import FriendRequests from '../components/Home/FriendRequests';
+import SearchUser from '../components/Home/SearchUser';
 
 
 const BottomTab = createMaterialBottomTabNavigator()
@@ -19,6 +20,7 @@ const HomeStackNavigator = () => (
    //   <Tabs.Screen name="Search" component={SearchStackScreen} />
    // </Tabs.Navigator>
    <BottomTab.Navigator
+
       style={{ color: 'white' }}
       // activeColor="#e91e63"
       activeColor="white"
@@ -35,6 +37,9 @@ const HomeStackNavigator = () => (
                iconName = focused ? 'home' : 'home-outline';
                size = focused ? 25 : 20;
             } else if (route.name === 'Friends') {
+               iconName = focused ? 'people' : 'people-outline';
+               size = focused ? 25 : 20;
+            } else if (route.name === 'Search') {
                iconName = focused ? 'search' : 'search-outline';
                size = focused ? 25 : 20;
             } else if (route.name === 'FriendRequests') {
@@ -55,6 +60,7 @@ const HomeStackNavigator = () => (
 
 
       <BottomTab.Screen options={{ tabBarLabel: "Main" }} name="Main" component={Main} />
+      <BottomTab.Screen options={{ tabBarLabel: "Search" }} name="Search" component={SearchUser} />
       <BottomTab.Screen options={{ tabBarLabel: "Friends" }} name="Friends" component={Friends} />
       <BottomTab.Screen options={{ tabBarLabel: "Friend Requests" }} name="FriendRequests" component={FriendRequests} />
       <BottomTab.Screen options={{ tabBarLabel: "Profile" }} name="Profile" component={Profile} />

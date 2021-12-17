@@ -120,7 +120,7 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                   secureTextEntry
                   onChangeText={(inputPw => setPassword(inputPw))} />
                {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-               <Spacer margin={5} />
+               {/* <Spacer margin={5} />
 
                {signButtonText == 'Sign Up' ? (
                   <Input
@@ -136,7 +136,7 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                      value={passwordRepeat}
                      secureTextEntry
                      onChangeText={(inputPw => setPasswordRepeat(inputPw))} />
-               ) : (<View></View>)}
+               ) : (<View></View>)} */}
                <Spacer margin={10} />
 
                <Button
@@ -146,7 +146,7 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
                   disabledTitleStyle={{ color: 'black' }}
                   // loadingStyle={{ shadowColor: 'red', }}
                   loadingProps={{ color: 'black' }}
-                  disabled={signButtonText == 'Sign Up' ? username === '' || password == '' || passwordRepeat == '' : username === '' || password == ''}
+                  disabled={signButtonText == 'Sign Up' ? username === '' || password == '' : username === '' || password == ''}
                   type="solid"
                   loading={isSigningIn}
                   title={signButtonText}

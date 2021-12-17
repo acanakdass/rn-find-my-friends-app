@@ -15,20 +15,27 @@ const FriendRequests = () => {
 
    const isFocused = useIsFocused()
    let friendsService = new FriendsService();
+   // useEffect(async () => {
+   //    await getStoredUserObject().then(res => {
+   //       setcurrentUser(res);
+   //    })
+   // }, [])
    useEffect(async () => {
-      console.log('Getting current user object from async storage');
-      // console.log(getStoredUserObject())
-      await getStoredUserObject().then(res => {
-         setcurrentUser(res);
-      })
-   }, [])
+      if (currentUser.id == undefined) {
+         await getStoredUserObject().then(res => {
+            console.log(res)
+            console.log(currentUser)
+            console.log('res')
+            setcurrentUser(res);
+         })
+      }
+   }, [isFocused, currentUser])
 
    const acceptFriendRequest = (senderId) => {
       friendsService.acceptFriendRequest(senderId, currentUser.id).then(res => {
-         console.log(res.data)
+         console.log(res.data.message)
+         setFriendRequests(friendRequests.filter(f => f.id != senderId))
       }).catch(err => console.log('err while accepting:' + err))
-      console.log(senderId)
-      console.log(currentUser.id)
    }
    useEffect(() => {
       if (currentUser != {}) {
@@ -37,8 +44,8 @@ const FriendRequests = () => {
             setFriendRequests(res.data.data)
          })
       }
-      console.log('setting friend requests')
-   }, [currentUser, isFocused])
+      // console.log('setting friend requests')
+   }, [currentUser])
 
 
 

@@ -12,27 +12,39 @@ const Friends = ({ navigation }) => {
 
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
    const isFocused = useIsFocused();
-   const [currentUser, setcurrentUser] = useState({});
    const [friends, setFriends] = useState(null);
+   const [currentUser, setcurrentUser] = useState({});
 
    let friendsService = new FriendsService();
    useEffect(async () => {
-      console.log('Getting current user object from async storage');
-      // console.log(getStoredUserObject())
-      await getStoredUserObject().then(res => {
-         setcurrentUser(res);
-      })
-      console.log('friendsss: ' + friends)
-   }, [])
 
+      if (currentUser.id == undefined) {
+         await getStoredUserObject().then(res => {
+            setcurrentUser(res);
+         })
+      }
+   }, [currentUser])
+
+   const handleRemoveFriend = (friendId) => {
+      friendsService.removeFromFriends(currentUser.id, friendId).then(res => {
+         console.log(res.data?.message);
+         setFriends(friends.filter(f => f.id != friendId));
+      }).catch(er => {
+         console.log(err);
+      })
+   }
    useEffect(() => {
-      if (currentUser != {}) {
+      if (currentUser.id != undefined) {
          friendsService.getAllFriendsByUserId(currentUser.id).then(res => {
-            console.log(res.data.data)
+
+            // console.log("currentUser.id")
+            // console.log(currentUser?.id)
+            // console.log(res.data.data)
+            // console.warn(res.data.data)
             setFriends(res.data.data)
          })
       }
-      console.log('setting friends')
+      // console.log('setting friends')
    }, [currentUser, isFocused])
 
    return (
@@ -42,8 +54,9 @@ const Friends = ({ navigation }) => {
          <Button onPress={() => navigation.navigate('FriendRequests')} >See friend requests</Button> */}
          {friends == null ? (
             <SingleSpinner />
+
          ) : <View>
-            <FriendsList data={friends} />
+            <FriendsList handleRemoveFriend={handleRemoveFriend} data={friends} />
          </View>}
 
       </View>

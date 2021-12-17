@@ -8,6 +8,9 @@ export default class UserService {
    getAll() {
       return axios.get(this.baseUrl + "/getAll");
    }
+   searchByUsernameOrEmail(usernameOrEmail) {
+      return axios.get(this.baseUrl + "/searchByUsernameOrEmail?username=" + usernameOrEmail);
+   }
    getCurrentUser(token) {
       const config = {
          headers: {

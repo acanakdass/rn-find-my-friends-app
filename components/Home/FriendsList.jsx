@@ -1,14 +1,12 @@
 import { Avatar, FlatList } from 'native-base'
-import React from 'react'
-import { View, Text } from 'react-native'
-import { ListItem, Button, Icon } from 'react-native-elements'
+import React, { useEffect } from 'react'
+import { View } from 'react-native'
+import { ListItem, Button, Icon, Text } from 'react-native-elements'
 
-const FriendsList = ({ data }) => {
+const FriendsList = ({ data, handleRemoveFriend }) => {
 
-   const testFunc = () => {
-
-   }
    const keyExtractor = (item, index) => index.toString()
+
 
    const renderItem = ({ item }) => (
       <ListItem.Swipeable
@@ -17,6 +15,7 @@ const FriendsList = ({ data }) => {
          containerStyle={{ backgroundColor: 'black' }}
          leftContent={
             <Button
+               onPress={() => console.log('info')}
                title="Info"
                icon={{ name: 'info', color: 'white' }}
                buttonStyle={{ minHeight: '100%' }}
@@ -24,6 +23,7 @@ const FriendsList = ({ data }) => {
          }
          rightContent={
             <Button
+               onPress={() => handleRemoveFriend(item.id)}
                title="Delete"
                icon={{ name: 'delete', color: 'white' }}
                buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
@@ -48,6 +48,7 @@ const FriendsList = ({ data }) => {
             data={data}
             renderItem={renderItem}
          />
+
       </View>
    )
 }

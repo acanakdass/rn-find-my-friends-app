@@ -9,7 +9,7 @@ const Profile = () => {
 
    const [currentUser, setcurrentUser] = useState({})
    useEffect(() => {
-      console.log('Getting current user object from async storage');
+      // console.log('Getting current user object from async storage');
       // console.log(getStoredUserObject())
       getStoredUserObject().then(res => setcurrentUser(res))
    }, [isFocused])

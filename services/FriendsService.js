@@ -17,6 +17,12 @@ export default class FriendsService {
    acceptFriendRequest(senderId, receiverId) {
       return axios.post(this.baseUrl + "/acceptFriendRequest", { "senderId": senderId, "receiverId": receiverId });
    }
+   sendFriendRequest(senderId, receiverId) {
+      return axios.post(this.baseUrl + "/sendFriendRequest", { "senderId": senderId, "receiverId": receiverId });
+   }
+   removeFromFriends(senderId, receiverId) {
+      return axios.post(this.baseUrl + "/removeFromFriends", { "senderId": senderId, "receiverId": receiverId });
+   }
    // getCurrentUser(token) {
    //    const config = {
    //       headers: {

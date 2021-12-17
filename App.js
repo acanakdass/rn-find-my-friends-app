@@ -62,7 +62,7 @@ export default function App() {
 
     console.log("token: " + token)
     userService.getCurrentUser(token).then(res => {
-      console.log('Getting current user')
+      // console.log('Getting current user')
       setisAuthenticated(true)
     }).catch(err => {
       console.log('Cant get current user')
@@ -142,7 +142,7 @@ export default function App() {
             console.log('Data is null');
             return null;
           } else {
-            console.log('not null')
+            // console.log('not null')
             // console.log(JSON.parse(jsonValue))
             return JSON.parse(jsonValue);
           }
