@@ -12,7 +12,7 @@ import AuthService from './services/AuthService';
 import { AuthContext } from './contexts/AuthContext';
 import UserService from './services/UserService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import * as Location from 'expo-location';
 // import { useNavigation } from '@react-navigation/core';
 import SpinnerScreen from './components/Utils/SpinnerScreen';
 
@@ -148,6 +148,20 @@ export default function App() {
           }
         } catch (e) {
           console.log('error reading current user object : ' + e)
+        }
+      },
+      getLocation: async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync()
+
+        if (status !== 'granted') {
+          console.log('Permission to access location was denied');
+          return;
+        }
+        let location = await Location.getCurrentPositionAsync({});
+        console.log(location.coords)
+        return {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude
         }
       }
     }

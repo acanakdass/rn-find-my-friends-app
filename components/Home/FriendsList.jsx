@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { Avatar, FlatList } from 'native-base'
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
@@ -7,10 +8,14 @@ const FriendsList = ({ data, handleRemoveFriend }) => {
 
    const keyExtractor = (item, index) => index.toString()
 
+   const navigation = useNavigation()
 
    const renderItem = ({ item }) => (
       <ListItem.Swipeable
-         onPress={() => alert(item.email)}
+         onPress={() => {
+            navigation.navigate('Map', item.location)
+
+         }}
          // accessible
          containerStyle={{ backgroundColor: 'black' }}
          leftContent={

@@ -5,6 +5,7 @@ import AuthStackScreen from './AuthStackScreen';
 import HomeStackNavigator from './HomeStackNavigator';
 import UserService from '../services/UserService';
 import { useNavigation } from '@react-navigation/core';
+import MapMain from '../components/Map/MapMain';
 
 const RootStackNavigator = ({ isAuthenticated }) => {
 
@@ -47,7 +48,7 @@ const RootStackNavigator = ({ isAuthenticated }) => {
          {isAuthenticated == true ? (
             <>
                <Stack.Screen name="Home" component={HomeStackNavigator} options={{ animation: 'fade_from_bottom', title: 'Find My Friends', headerShown: true, headerTitleStyle: { color: 'white' }, headerStyle: { backgroundColor: 'black' } }} />
-               {/* <Stack.Screen name="Auth" component={AuthStackScreen} options={{ title: 'Sign In', headerShown: false }} /> */}
+               <Stack.Screen name="Map" component={MapMain} options={{ animation: 'fade', title: 'Map', headerShown: true, headerTitleStyle: { color: 'white' }, headerStyle: { backgroundColor: 'black' } }} />
             </>
          ) :
             <>

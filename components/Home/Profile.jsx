@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { AuthContext } from '../../contexts/AuthContext';
 import { useIsFocused } from '@react-navigation/native';
+import { Button, Divider } from 'native-base';
 
 const Profile = () => {
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
@@ -19,6 +20,11 @@ const Profile = () => {
 
          <Text style={styles.text}>{currentUser?.id}</Text>
          <Text style={styles.text}>{currentUser?.firstName}</Text>
+         <Divider></Divider>
+         <Button onPress={() => {
+            signOut()
+         }}>Sign Out</Button>
+
       </View>
    )
 }

@@ -45,7 +45,7 @@ const FriendRequests = () => {
          })
       }
       // console.log('setting friend requests')
-   }, [currentUser])
+   }, [currentUser, isFocused])
 
 
 

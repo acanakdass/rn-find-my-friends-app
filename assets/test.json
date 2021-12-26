@@ -1,0 +1,60 @@
+[
+   {
+      "id": 4,
+      "firstname": "Ahmet Can",
+      "lastname": "Akdaş",
+      "username": "acanakdas",
+      "password": "acanakdas",
+      "roles": [
+         {
+            "id": 1,
+            "name": "first_role"
+         }
+      ]
+   },
+   {
+      "id": 5,
+      "firstname": "Acan",
+      "lastname": "Aktaş",
+      "username": "acan",
+      "password": "acan",
+      "roles": [
+         {
+            "id": 2,
+            "name": "second_role"
+         }
+      ]
+   },
+   {
+      "id": 9,
+      "firstname": "Ahmet Can",
+      "lastname": "Akdaş",
+      "username": "acanakdas",
+      "password": "acanakdas",
+      "roles": []
+   },
+   {
+      "id": 10,
+      "firstname": "Acan",
+      "lastname": "Aktaş",
+      "username": "acan",
+      "password": "acan",
+      "roles": []
+   },
+   {
+      "id": 14,
+      "firstname": "Ahmet Can",
+      "lastname": "Akdaş",
+      "username": "acanakdas",
+      "password": "acanakdas",
+      "roles": []
+   },
+   {
+      "id": 15,
+      "firstname": "Acan",
+      "lastname": "Aktaş",
+      "username": "acan",
+      "password": "acan",
+      "roles": []
+   }
+]

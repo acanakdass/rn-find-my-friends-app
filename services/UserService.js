@@ -8,9 +8,15 @@ export default class UserService {
    getAll() {
       return axios.get(this.baseUrl + "/getAll");
    }
+
+   getAllWithLocations() {
+      return axios.get(this.baseUrl + "/getAllUsersWithLocations");
+   }
+
    searchByUsernameOrEmail(usernameOrEmail) {
       return axios.get(this.baseUrl + "/searchByUsernameOrEmail?username=" + usernameOrEmail);
    }
+
    getCurrentUser(token) {
       const config = {
          headers: {

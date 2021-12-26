@@ -39,7 +39,7 @@ const Friends = ({ navigation }) => {
 
             // console.log("currentUser.id")
             // console.log(currentUser?.id)
-            // console.log(res.data.data)
+            console.log(res.data.data)
             // console.warn(res.data.data)
             setFriends(res.data.data)
          })
