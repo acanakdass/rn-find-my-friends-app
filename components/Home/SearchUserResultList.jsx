@@ -3,6 +3,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { ListItem, Button, Icon, Text } from 'react-native-elements'
 import FriendsService from '../../services/FriendsService';
+import AvatarCircle from '../Utils/AvatarCircle';
 
 const SearchUserResultList = ({ data, acceptFriendRequest, currentUserId }) => {
 
@@ -17,7 +18,8 @@ const SearchUserResultList = ({ data, acceptFriendRequest, currentUserId }) => {
       <ListItem
          onPress={() => console.log(`currentId:${currentUserId}, thisUserId: ${item.id} `)}
          containerStyle={{ backgroundColor: "black" }}>
-         <Icon color='white' name="person" />
+         {/* <Icon color='white' name="person" /> */}
+         <AvatarCircle />
          <ListItem.Content >
             <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
             <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>

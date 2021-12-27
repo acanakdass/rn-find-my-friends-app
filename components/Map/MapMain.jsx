@@ -29,8 +29,8 @@ export default function App({ route }) {
             
          )} */}
          <MapView initialRegion={{
-            latitude: latitude,
-            longitude: longitude,
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
             latitudeDelta: 0.01,
             longitudeDelta: 0.05,
          }} style={styles.map}>

@@ -48,7 +48,7 @@ const RootStackNavigator = ({ isAuthenticated }) => {
          {isAuthenticated == true ? (
             <>
                <Stack.Screen name="Home" component={HomeStackNavigator} options={{ animation: 'fade_from_bottom', title: 'Find My Friends', headerShown: true, headerTitleStyle: { color: 'white' }, headerStyle: { backgroundColor: 'black' } }} />
-               <Stack.Screen name="Map" component={MapMain} options={{ animation: 'fade', title: 'Map', headerShown: true, headerTitleStyle: { color: 'white' }, headerStyle: { backgroundColor: 'black' } }} />
+               <Stack.Screen name="Map" component={MapMain} options={{ animation: 'simple_push', title: 'Map', headerShown: true, headerTitleStyle: { color: 'white' }, headerStyle: { backgroundColor: 'black' } }} />
             </>
          ) :
             <>

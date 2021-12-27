@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
-import { Avatar, FlatList } from 'native-base'
+import { FlatList } from 'native-base'
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
+import { TouchableHighlight, View, StyleSheet, Image } from 'react-native'
 import { ListItem, Button, Icon, Text } from 'react-native-elements'
+import AvatarCircle from '../Utils/AvatarCircle'
 
 const FriendsList = ({ data, handleRemoveFriend }) => {
 
@@ -36,7 +37,7 @@ const FriendsList = ({ data, handleRemoveFriend }) => {
          }
          style={{ backgroundColor: 'black' }}
       >
-         <Icon name="person" color='white' />
+         <AvatarCircle />
          <ListItem.Content >
             <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
             <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>
@@ -59,3 +60,7 @@ const FriendsList = ({ data, handleRemoveFriend }) => {
 }
 
 export default FriendsList
+
+
+
+
