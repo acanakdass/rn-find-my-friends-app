@@ -19,7 +19,7 @@ const SearchUserResultList = ({ data, acceptFriendRequest, currentUserId }) => {
          onPress={() => console.log(`currentId:${currentUserId}, thisUserId: ${item.id} `)}
          containerStyle={{ backgroundColor: "black" }}>
          {/* <Icon color='white' name="person" /> */}
-         <AvatarCircle />
+         <AvatarCircle size={45} imagePath={item.imagePath} />
          <ListItem.Content >
             <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
             <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>

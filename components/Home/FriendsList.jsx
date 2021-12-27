@@ -9,12 +9,14 @@ const FriendsList = ({ data, handleRemoveFriend }) => {
 
    const keyExtractor = (item, index) => index.toString()
 
-   const navigation = useNavigation()
+   const navigation = useNavigation();
+
+
 
    const renderItem = ({ item }) => (
       <ListItem.Swipeable
          onPress={() => {
-            navigation.navigate('Map', item.location)
+            navigation.navigate('Map', item)
 
          }}
          // accessible
@@ -37,7 +39,7 @@ const FriendsList = ({ data, handleRemoveFriend }) => {
          }
          style={{ backgroundColor: 'black' }}
       >
-         <AvatarCircle />
+         <AvatarCircle size={50} imagePath={item.imagePath} />
          <ListItem.Content >
             <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
             <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>

@@ -3,6 +3,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { ListItem, Button, Icon, Text } from 'react-native-elements'
 import FriendsService from '../../services/FriendsService';
+import AvatarCircle from '../Utils/AvatarCircle';
 
 const FriendRequestsList = ({ data, acceptFriendRequest }) => {
 
@@ -15,7 +16,8 @@ const FriendRequestsList = ({ data, acceptFriendRequest }) => {
       <ListItem
          onPress={() => console.log('pressed')}
          containerStyle={{ backgroundColor: "black" }}>
-         <Icon color='white' name="person" />
+         {/* <Icon color='white' name="person" /> */}
+         <AvatarCircle size={25} imagePath={item.imagePath} />
          <ListItem.Content >
             <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
             <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>

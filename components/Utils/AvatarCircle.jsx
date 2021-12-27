@@ -1,12 +1,30 @@
+import { useIsFocused } from '@react-navigation/native';
 import React from 'react'
 import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native'
 
-const AvatarCircle = () => {
+const AvatarCircle = (props) => {
+
+   const baseUrl = "http://5a1d-88-234-215-48.ngrok.io/";
+   const isFocused = useIsFocused()
+   React.useEffect(() => {
+      console.log(props)
+   }, [isFocused])
    return (
       <TouchableHighlight
-         style={[styles.profileImgContainer]}
+         style={{
+            height: props.size,
+            width: props.size,
+            padding: 2,
+            borderRadius: 40,
+            // borderWidth: 1
+         }}
       >
-         <Image source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx1itTXTXLB8p4ALTTL8mUPa9TFN_m9h5VQ&usqp=CAU" }} style={styles.profileImg} />
+         <Image source={{ uri: baseUrl + props.imagePath }}
+            style={{
+               height: props.size - 5,
+               width: props.size - 5,
+               borderRadius: 40,
+            }} />
       </TouchableHighlight>
    )
 }
@@ -14,15 +32,8 @@ const AvatarCircle = () => {
 export default AvatarCircle
 
 const styles = StyleSheet.create({
-   profileImgContainer: {
-      marginLeft: 8,
-      height: 50,
-      width: 50,
-      borderRadius: 40,
-   },
+
    profileImg: {
-      height: 50,
-      width: 50,
-      borderRadius: 40,
+
    },
 })

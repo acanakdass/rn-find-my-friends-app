@@ -12,6 +12,7 @@ import MapView, { Marker } from 'react-native-maps';
 import LocationService from '../../services/LocationService';
 import FriendsService from '../../services/FriendsService';
 import SingleSpinner from '../Utils/SingleSpinner';
+import AvatarCircle from '../Utils/AvatarCircle';
 
 
 const Main = () => {
@@ -100,16 +101,20 @@ const Main = () => {
             }} style={styles.map}>
                {friends?.map(friend => (
                   <Marker
+                     key={friend.id}
                      title={friend.email}
                      coordinate={
                         {
-                           latitude: friend.location?.latitude,
-                           longitude: friend.location?.longitude,
+                           latitude: parseFloat(friend.location?.latitude),
+                           longitude: parseFloat(friend.location?.longitude),
                            latitudeDelta: 0.01,
                            longitudeDelta: 0.05,
                         }
                      }>
-                     <Image source={{ uri: image }} style={{ width: 26, height: 26 }} />
+                     {/* <Image source={{ uri: image }} style={{ width: 26, height: 26 }} /> */}
+                     <View>
+                        <AvatarCircle size={30} imagePath={friend.imagePath} />
+                     </View>
                   </Marker>
                )
                )}

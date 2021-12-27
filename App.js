@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 // import { useNavigation } from '@react-navigation/core';
 import SpinnerScreen from './components/Utils/SpinnerScreen';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 export default function App() {
 
@@ -167,18 +168,30 @@ export default function App() {
     }
   }, [])
 
-
+  const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'white',
+      text: 'white',
+      accent: '#f1c40f',
+    },
+  };
 
   return (
 
     isLoading == false ? (
       <>
         <AuthContext.Provider value={authContext} >
-          <NativeBaseProvider>
-            <NavigationContainer>
-              <RootStackNavigator isAuthenticated={isAuthenticated} />
-            </NavigationContainer>
-          </NativeBaseProvider>
+          <PaperProvider theme={theme}>
+
+            <NativeBaseProvider>
+              <NavigationContainer>
+                <RootStackNavigator isAuthenticated={isAuthenticated} />
+              </NavigationContainer>
+            </NativeBaseProvider>
+          </PaperProvider>
         </AuthContext.Provider >
       </>
     ) : (

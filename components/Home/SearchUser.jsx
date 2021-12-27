@@ -6,6 +6,7 @@ import SearchUserResultList from './SearchUserResultList'
 import UserService from '../../services/UserService';
 import { AuthContext } from '../../contexts/AuthContext';
 import FriendsService from '../../services/FriendsService';
+import { useIsFocused } from '@react-navigation/native'
 
 const SearchUser = () => {
    const [searchValue, setSearchValue] = React.useState('')
@@ -16,16 +17,19 @@ const SearchUser = () => {
    let userService = new UserService();
    let friendsService = new FriendsService();
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
-
+   const isFocused = useIsFocused()
 
    useEffect(async () => {
-      await getStoredUserObject().then(res => {
-         console.log(res)
-         setcurrentUserId(res.id);
-      })
+      if (currentUserId == undefined) {
+
+         await getStoredUserObject().then(res => {
+            console.log(res)
+            setcurrentUserId(res.id);
+         })
+      }
       console.log('currentUserId : ' + currentUserId)
       handleSearch('')
-   }, [currentUserId])
+   }, [currentUserId, isFocused])
 
    // useEffect(() => {
    //    if (currentUser != {}) {

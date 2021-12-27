@@ -8,10 +8,12 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { color } from 'react-native-elements/dist/helpers';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
+import Urls from '../../services/BaseUrl';
 
 const SigninScreen = ({ route, navigation }) => {
 
    const { signIn, goWithoutSignIn } = React.useContext(AuthContext)
+
    return (
 
       <View style={styles.container}>

@@ -6,13 +6,14 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { useEffect } from 'react';
 import SingleSpinner from '../Utils/SingleSpinner';
 import UserService from '../../services/UserService';
+import AvatarCircle from '../Utils/AvatarCircle';
 
 export default function App({ route }) {
 
    const [currentLocation, setCurrentLocation] = React.useState(null)
    const { getLocation } = React.useContext(AuthContext)
 
-   const { latitude, longitude } = route.params;
+
 
 
 
@@ -29,8 +30,8 @@ export default function App({ route }) {
             
          )} */}
          <MapView initialRegion={{
-            latitude: parseFloat(latitude),
-            longitude: parseFloat(longitude),
+            latitude: parseFloat(route.params.location.latitude),
+            longitude: parseFloat(route.params.location.longitude),
             latitudeDelta: 0.01,
             longitudeDelta: 0.05,
          }} style={styles.map}>
@@ -38,13 +39,14 @@ export default function App({ route }) {
                title='Me'
                coordinate={
                   {
-                     latitude: latitude,
-                     longitude: longitude,
+                     latitude: parseFloat(route.params.location.latitude),
+                     longitude: parseFloat(route.params.location.longitude),
                      latitudeDelta: 0.01,
                      longitudeDelta: 0.05,
                   }
                }>
-               <Image source={{ uri: image }} style={{ width: 26, height: 26 }} />
+               {/* <Image source={{ uri: image }} style={{ width: 26, height: 26 }} /> */}
+               <AvatarCircle size={30} imagePath={route.params.imagePath} />
             </Marker>
          </MapView>
       </View>

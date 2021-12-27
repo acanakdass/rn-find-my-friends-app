@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { HStack, Heading, Spinner, Center, Divider } from 'native-base';
+import { HStack, Heading, Spinner, Center, Divider, Box } from 'native-base';
 import FriendRequestsList from './FriendRequestsList';
 import { AuthContext } from '../../contexts/AuthContext';
 import FriendsService from '../../services/FriendsService';
 import { useIsFocused } from '@react-navigation/native';
+import SingleSpinner from '../Utils/SingleSpinner';
 
 const FriendRequests = () => {
 
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
 
    const [currentUser, setcurrentUser] = useState({});
-   const [friendRequests, setFriendRequests] = useState(null);
+   const [friendRequests, setFriendRequests] = useState();
 
    const isFocused = useIsFocused()
    let friendsService = new FriendsService();
@@ -38,13 +39,14 @@ const FriendRequests = () => {
       }).catch(err => console.log('err while accepting:' + err))
    }
    useEffect(() => {
-      if (currentUser != {}) {
+      if (true) {
          friendsService.getAllFriendRequestsByUserId(currentUser.id).then(res => {
-
+            console.log(res.data.data)
+            console.log("res.data.data")
             setFriendRequests(res.data.data)
          })
       }
-      // console.log('setting friend requests')
+      console.log('setting friend requests')
    }, [currentUser, isFocused])
 
 
@@ -53,7 +55,23 @@ const FriendRequests = () => {
 
    return (
       <View style={styles.container}>
-         <FriendRequestsList acceptFriendRequest={acceptFriendRequest} data={friendRequests} />
+
+         {
+            friendRequests == null
+               ? (
+                  <Center marginTop={50} >
+                     <Text style={{ color: 'white' }}>No friend requests</Text>
+                  </Center>
+               ) : friendRequests.length === 0
+                  ? (
+                     <Center marginTop={50} >
+                        <Text style={{ color: 'white' }}>No friend requests</Text>
+                     </Center>
+                  )
+                  : (
+                     <FriendRequestsList acceptFriendRequest={acceptFriendRequest} data={friendRequests} />
+                  )
+         }
       </View>
    )
 }

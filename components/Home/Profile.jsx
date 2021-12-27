@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native'
 import { AuthContext } from '../../contexts/AuthContext';
 import { useIsFocused } from '@react-navigation/native';
 import { Button, Divider } from 'native-base';
+import { Avatar, Card, IconButton } from 'react-native-paper';
+import AvatarCircle from '../Utils/AvatarCircle';
 
 const Profile = () => {
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
@@ -17,14 +19,16 @@ const Profile = () => {
 
    return (
       <View style={styles.container}>
+         <Card.Title
 
-         <Text style={styles.text}>{currentUser?.id}</Text>
-         <Text style={styles.text}>{currentUser?.firstName}</Text>
-         <Divider></Divider>
+            title={currentUser.firstName + " " + currentUser.lastName}
+            subtitle={currentUser.email}
+            left={(props) => <AvatarCircle size={50} imagePath={currentUser.imagePath} />}
+            right={(props) => <IconButton {...props} icon="menu" onPress={() => { }} />}
+         />
          <Button onPress={() => {
             signOut()
          }}>Sign Out</Button>
-
       </View>
    )
 }
