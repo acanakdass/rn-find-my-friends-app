@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { HStack, Heading, Spinner, Center, Divider, Box } from 'native-base';
+import { HStack, Heading, Spinner, Center, Divider, Box, useToast } from 'native-base';
 import FriendRequestsList from './FriendRequestsList';
 import { AuthContext } from '../../contexts/AuthContext';
 import FriendsService from '../../services/FriendsService';
@@ -10,6 +10,7 @@ import SingleSpinner from '../Utils/SingleSpinner';
 const FriendRequests = () => {
 
    const { signIn, signOut, goWithoutSignIn, getStoredToken, getStoredUserObject } = React.useContext(AuthContext)
+   const toast = useToast();
 
    const [currentUser, setcurrentUser] = useState({});
    const [friendRequests, setFriendRequests] = useState();
@@ -34,8 +35,13 @@ const FriendRequests = () => {
 
    const acceptFriendRequest = (senderId) => {
       friendsService.acceptFriendRequest(senderId, currentUser.id).then(res => {
-         console.log(res.data.message)
-         setFriendRequests(friendRequests.filter(f => f.id != senderId))
+         console.log(res.data.message);
+         toast.show({
+            title: res.data.message,
+            placement: 'top',
+            status: 'success'
+         })
+         setFriendRequests(friendRequests.filter(f => f.id != senderId));
       }).catch(err => console.log('err while accepting:' + err))
    }
    useEffect(() => {

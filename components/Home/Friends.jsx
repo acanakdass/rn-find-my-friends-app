@@ -1,4 +1,4 @@
-import { Button, Divider, Spinner } from 'native-base'
+import { Button, Divider, Spinner, useToast } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { List } from 'react-native-paper';
@@ -7,6 +7,7 @@ import { useIsFocused } from '@react-navigation/native';
 import FriendsService from '../../services/FriendsService';
 import SingleSpinner from '../Utils/SingleSpinner';
 import FriendsList from './FriendsList';
+import { Toast } from 'react-native-toast-message';
 
 const Friends = ({ navigation }) => {
 
@@ -14,6 +15,7 @@ const Friends = ({ navigation }) => {
    const isFocused = useIsFocused();
    const [friends, setFriends] = useState(null);
    const [currentUser, setcurrentUser] = useState({});
+
 
    let friendsService = new FriendsService();
    useEffect(async () => {
@@ -56,6 +58,7 @@ const Friends = ({ navigation }) => {
             <SingleSpinner />
 
          ) : <View>
+
             <FriendsList handleRemoveFriend={handleRemoveFriend} data={friends} />
          </View>}
 

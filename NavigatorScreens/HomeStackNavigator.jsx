@@ -66,6 +66,7 @@ const HomeStackNavigator = () => (
       <BottomTab.Screen options={{ tabBarLabel: "Profile" }} name="Profile" component={Profile} />
 
    </BottomTab.Navigator>
+
 )
 
 

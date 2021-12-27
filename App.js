@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NativeBaseProvider, Box, Button, Divider, HStack, Spinner, Heading, Center } from 'native-base';
+import { NativeBaseProvider, Box, Button, Divider, HStack, Spinner, Heading, Center, useToast } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SignIn from './components/Auth/SignIn';
@@ -16,12 +16,14 @@ import * as Location from 'expo-location';
 // import { useNavigation } from '@react-navigation/core';
 import SpinnerScreen from './components/Utils/SpinnerScreen';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 export default function App() {
 
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const toast = useToast()
 
 
   const authService = new AuthService();
@@ -134,6 +136,15 @@ export default function App() {
 
         }
       },
+
+      showToast: (description, title, placement, status) => {
+        toast.show({
+          description: 'description',
+          title: title,
+          placement: placement,
+          status: status
+        })
+      },
       getStoredUserObject: async () => {
         try {
           const jsonValue = await AsyncStorage.getItem('currentUserObj')
@@ -189,6 +200,7 @@ export default function App() {
             <NativeBaseProvider>
               <NavigationContainer>
                 <RootStackNavigator isAuthenticated={isAuthenticated} />
+
               </NavigationContainer>
             </NativeBaseProvider>
           </PaperProvider>

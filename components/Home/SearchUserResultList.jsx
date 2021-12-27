@@ -1,4 +1,4 @@
-import { Avatar, FlatList } from 'native-base'
+import { Avatar, FlatList, useToast } from 'native-base'
 import React from 'react'
 import { View } from 'react-native'
 import { ListItem, Button, Icon, Text } from 'react-native-elements'
@@ -8,10 +8,17 @@ import AvatarCircle from '../Utils/AvatarCircle';
 const SearchUserResultList = ({ data, acceptFriendRequest, currentUserId }) => {
 
    const keyExtractor = (item, index) => index.toString()
-
+   const toast = useToast();
    let friendsService = new FriendsService();
    const handleSendRequest = (receiverId) => {
-      friendsService.sendFriendRequest(currentUserId, receiverId).then(res => console.log(res.data.message));
+      friendsService.sendFriendRequest(currentUserId, receiverId).then(res => {
+         console.log(res.data.message)
+         toast.show({
+            title: res.data.message,
+            placement: 'top',
+            status: 'success'
+         })
+      });
    }
 
    const renderItem = ({ item }) => (
