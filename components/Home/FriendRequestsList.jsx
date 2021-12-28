@@ -17,7 +17,7 @@ const FriendRequestsList = ({ data, acceptFriendRequest }) => {
          onPress={() => console.log('pressed')}
          containerStyle={{ backgroundColor: "black" }}>
          {/* <Icon color='white' name="person" /> */}
-         <AvatarCircle size={25} imagePath={item.imagePath} />
+         <AvatarCircle size={50} imagePath={item.imagePath} />
          <ListItem.Content >
             <ListItem.Title ><Text style={{ color: 'white' }}>{item?.firstName}</Text> </ListItem.Title>
             <ListItem.Subtitle><Text style={{ color: 'white' }}>{item?.email} </Text></ListItem.Subtitle>

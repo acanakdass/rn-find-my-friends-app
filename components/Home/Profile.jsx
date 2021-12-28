@@ -32,7 +32,7 @@ const Profile = () => {
          mediaTypes: ImagePicker.MediaTypeOptions.All,
          allowsEditing: true,
          aspect: [4, 3],
-         quality: 1,
+         quality: 0.1,
       });
 
       console.log(result);
@@ -40,6 +40,7 @@ const Profile = () => {
       if (!result.cancelled) {
          setImage(result.uri);
          console.log()
+
          let data = new FormData()
          data.append("Image", {
             uri: result.uri,
