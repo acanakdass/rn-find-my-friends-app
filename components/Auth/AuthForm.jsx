@@ -7,7 +7,7 @@ import AuthService from '../../services/AuthService';
 import { AuthContext } from '../../contexts/AuthContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
+import { useToast } from 'native-base';
 
 const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigation }) => {
 
@@ -22,28 +22,33 @@ const AuthForm = ({ headerText, signButtonText, signFunc, errorMessage, navigati
    const navigatior = useNavigation();
    const [isSigningIn, setIsSigningIn] = useState(false);
 
-
+   const toast = useToast();
 
    const handleSignIn = () => {
       setIsSigningIn(true)
 
       signIn(username, password).then(res => {
-         console.log(res.data.data.token)
-         // showToast('success', 'welcome', 'signed in')
-         Toast.show({
-            type: 'success',
-            text1: 'Hello',
-            text2: 'This is some something 👋'
-         });
-         authenticateAndStoreToken(res.data.data.token)
-         setIsSigningIn(false)
+         if (res.data.success) {
+            console.log(res.data.data.token)
+            // showToast('success', 'welcome', 'signed in')  
+            authenticateAndStoreToken(res.data.data.token)
+            toast.show({
+               title: res.data.message,
+               placement: 'top',
+               status: 'success'
+            })
+            setIsSigningIn(false)
+         } else {
+            toast.show({
+               title: res.data.message,
+               placement: 'top',
+               status: 'error'
+            })
+            setIsSigningIn(false)
+         }
       }
-      ).catch(err => {
-         console.log('Hata olduu: ' + err)
+      ).finally(f => {
          setIsSigningIn(false)
-      }).finally(f => {
-         setIsSigningIn(false)
-         console.log('fianlly worked')
       })
    }
 

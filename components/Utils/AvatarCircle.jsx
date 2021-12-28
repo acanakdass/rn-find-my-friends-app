@@ -4,10 +4,10 @@ import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native'
 
 const AvatarCircle = (props) => {
 
-   const baseUrl = "http://594c-88-234-219-65.ngrok.io/";
+   const baseUrl = "http://683b-88-234-222-187.ngrok.io/";
    const isFocused = useIsFocused()
    React.useEffect(() => {
-      console.log(props)
+      // console.log(props)
    }, [isFocused])
    return (
       <TouchableHighlight

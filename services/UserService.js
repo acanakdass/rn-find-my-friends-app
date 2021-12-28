@@ -17,6 +17,17 @@ export default class UserService {
       return axios.get(this.baseUrl + "/searchByUsernameOrEmail?username=" + usernameOrEmail);
    }
 
+   uploadImage(formData) {
+      const config = {
+         headers: {
+            "content-type": "multipart/form-data"
+         }
+      };
+      console.log('dataaa: ')
+      console.log(formData)
+      return axios.post(this.baseUrl + "/uploadImage", formData);
+   }
+
    getCurrentUser(token) {
       const config = {
          headers: {
